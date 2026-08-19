@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using NUnit.Framework;
 using apiTests.DTO;
+using Refit;
 
 namespace apiTests;
 
@@ -44,10 +45,7 @@ public class Tests
     [Test]
     public async Task Test3()
     {
-        CreateUserRequestDto user = new CreateUserRequestDto();
-
-        user.Name = "Aleksei";
-        user.Job = "QA";
+        CreateUserRequestDto user = new CreateUserRequestDto("Aleksei", "QA");
 
         using HttpResponseMessage response = await client.PostAsJsonAsync("users", user);
         string jsonGet = await response.Content.ReadAsStringAsync();
@@ -58,10 +56,7 @@ public class Tests
     [Test]
     public async Task Test4()
     {
-        CreateUserRequestDto user = new CreateUserRequestDto();
-
-        user.Name = "Aleksei";
-        user.Job = "Dvornick";
+        CreateUserRequestDto user = new CreateUserRequestDto("Aleksei", "Dvornick");
 
         using HttpResponseMessage response = await client.PutAsJsonAsync("users/2", user);
         response.EnsureSuccessStatusCode();
