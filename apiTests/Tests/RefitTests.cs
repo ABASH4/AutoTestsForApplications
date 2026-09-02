@@ -31,7 +31,6 @@ public class RefitTests
             ));
     }
 
-
     [Test]
     public async Task Test2()
     {
@@ -42,11 +41,17 @@ public class RefitTests
     
     [Test]
     public async Task Test3()
-
     {
         var updateUser = new CreateUserRequestDto("Bashmucho", "Dvornick");
         var response = await _client.PutUserAsync(2, updateUser);
         Assert.That(response.Job, Is.EqualTo("Dvornick"));
+    }
+    
+    [Test]
+    public async Task Test4()
+    {
+        var response = await _client.DeleteUserAsync(2);
+        Assert.That(response.IsSuccessStatusCode, Is.True);
     }
 }
 

@@ -13,6 +13,8 @@ public interface IUserApiClient
     Task<CreateUserResponseDto> CreateUserAsync([Body] CreateUserRequestDto createUserRequestDto);
     
     [Put("/users/{id}")]
-
     Task<CreateUserResponseDto> PutUserAsync(int id, [Body] CreateUserRequestDto user);
+    
+    [Delete("/users/{id}")]
+    Task<HttpResponseMessage> DeleteUserAsync(int id);
 }
