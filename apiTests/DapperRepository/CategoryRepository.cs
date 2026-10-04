@@ -1,0 +1,31 @@
+using apiTests.DTO.DapperDTOs;
+using apiTests.Interfaces.DapperInterfaces;
+using Dapper;
+using Microsoft.Data.Sqlite;
+
+namespace apiTests.DapperRepository;
+
+public class CategoryRepository : ICategoryRepository
+{
+    private readonly string connectionString;
+    
+    public CategoryRepository(string connection)
+    {
+        connectionString = connection;
+    }
+    
+    public async Task<IEnumerable<CategoryDTO>> GetAllCategoriesAsync()
+    {
+        using var db = new SqliteConnection(connectionString);
+        var categories = await db.QueryAsync<CategoryDTO>("SELECT * FROM Categories");
+        return categories;
+    }
+    
+    public async Task<CategoryDTO> GetCategoryByNameAsync(string categoryName)
+    {
+        using var db = new SqliteConnection(connectionString);
+        var category = await db.QueryFirstOrDefaultAsync<CategoryDTO>("SELECT * FROM Categories  WHERE Name = @categoryName", 
+            new { categoryName });
+        return category;
+    }
+}
