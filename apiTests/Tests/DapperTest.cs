@@ -88,8 +88,12 @@ public class DapperTest
     [Test]
     public async Task CheckItemsFromOrders()
     {
+        var orderRepo = precondition.Provider.GetService<IOrderRepository>();
+        var order = await orderRepo.GetOrderByIdAsync(11);
+        order.UserId.Should().Be(11);
+
         var repo1 = precondition.Provider.GetService<IOrderItemRepository>();
-        var orderItems = await repo1.GetOrderItemsByOrderIdAsync(11);
+        var orderItems = await repo1.GetOrderItemsByOrderIdAsync(order.Id);
         var repo2 = precondition.Provider.GetService<IProductRepository>();
         var product1 = await repo2.GetProductByIdAsync(orderItems.ElementAt(0).ProductId);
         var product2 = await repo2.GetProductByIdAsync(orderItems.ElementAt(1).ProductId);

@@ -10,7 +10,7 @@ namespace apiTests;
 
 public class Tests
 {
-    public static HttpClient client;
+    private static HttpClient client;
     
     [OneTimeSetUp]
     public void Setup()
