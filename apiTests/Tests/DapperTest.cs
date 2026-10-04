@@ -10,15 +10,6 @@ public class DapperTest
 {
     private readonly TestPrecondition precondition = new();
 
-    // [Test]
-    public async Task Initialize()
-    {
-        var connectionString = "Data Source=marketplace.db";
-        await using var connection = new SqliteConnection(connectionString);
-        await connection.OpenAsync();
-        await DatabaseInitializer.InitializeAsync(connection);
-    }
-
     [Test]
     public async Task GetAllUsers()
     {
